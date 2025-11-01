@@ -10,13 +10,13 @@ import re
 profanity.load_censor_words()
 profanity.add_censor_words(['idiot', 'stupid', 'dumb', 'kill', 'fool'])
 
-st.set_page_config(page_title="🎭 Mood2Emoji", page_icon="😊", layout="centered")
+st.set_page_config(page_title="Mood2Emoji", layout="centered")
 
 st.markdown(
     """
-    <h1 style='text-align: center; color: #4C4CFF;'>🎭 Mood2Emoji</h1>
+    <h1 style='text-align: center; color: #4C4CFF;'>Mood2Emoji</h1>
     <p style='text-align: center; color: #666;'>
-    Type how you feel and get a little emoji friend & message for your mood 💬
+    Type how you feel and get a little emoji friend & message for your mood 
     </p>
     """,
     unsafe_allow_html=True,
@@ -26,21 +26,21 @@ st.markdown(
 # SIDEBAR: Teacher Mode
 # -----------------------------
 with st.sidebar:
-    st.header("👩‍🏫 Teacher Mode")
+    st.header(" Teacher Mode")
     show_teacher_mode = st.checkbox("Show Teacher Info")
 
     if show_teacher_mode:
         st.markdown(
             """
-            ### 🧠 About the Project
+            ### About the Project
             **Mood2Emoji** is an educational emotion detection app built for young learners (ages 12–16).  
             It helps students express how they feel through short text input and instantly visualizes their emotion using emojis and kind responses.  
             The system encourages emotional awareness, digital empathy, and safe communication online.
 
             ---
 
-            ### ⚙️ How It Works – Data Flow
-            Below is the visual data flow of how the Mood2Emoji app processes student input 👇
+            ### How It Works – Data Flow
+            Below is the visual data flow of how the Mood2Emoji app processes student input 
             """,
             unsafe_allow_html=True,
         )
@@ -52,11 +52,11 @@ with st.sidebar:
             """
             ```mermaid
             flowchart TD
-                A[🧑 User Input] --> B[🧹 Text Preprocessing<br/>(Contraction Expansion + Profanity Filter)]
-                B --> C[🧠 Sentiment Analyzer<br/>(PatternAnalyzer - TextBlob)]
-                C --> D[⚖️ Polarity Adjustment<br/>(Negation & Keyword Rules)]
-                D --> E[🎭 Mood Mapping<br/>(Happy / Neutral / Sad)]
-                E --> F[😊 Emoji & Message Output]
+                A[User Input] --> B[🧹 Text Preprocessing<br/>(Contraction Expansion + Profanity Filter)]
+                B --> C[Sentiment Analyzer<br/>(PatternAnalyzer - TextBlob)]
+                C --> D[Polarity Adjustment<br/>(Negation & Keyword Rules)]
+                D --> E[Mood Mapping<br/>(Happy / Neutral / Sad)]
+                E --> F[Emoji & Message Output]
             ```
             """,
             unsafe_allow_html=True,
@@ -74,18 +74,18 @@ with st.sidebar:
 
             ---
 
-            ### 🌟 Key Features
-            - 🧩 **AI-based Emotion Detection** using PatternAnalyzer.  
-            - 🧠 **Negation & Contraction Handling** for natural text.  
-            - 🚫 **Profanity Filtering** for classroom safety.  
-            - 🎨 **Dynamic Emoji & Color Feedback.**  
-            - 💬 **Positive Reinforcement Messages.**  
-            - 👩‍🏫 **Teacher Mode Dashboard** with explanation & DFD.  
-            - 🌈 Designed for **Digital Emotional Literacy**.
+            ###  Key Features
+            -  **AI-based Emotion Detection** using PatternAnalyzer.  
+            -  **Negation & Contraction Handling** for natural text.  
+            -  **Profanity Filtering** for classroom safety.  
+            -  **Dynamic Emoji & Color Feedback.**  
+            -  **Positive Reinforcement Messages.**  
+            -  **Teacher Mode Dashboard** with explanation & DFD.  
+            -  Designed for **Digital Emotional Literacy**.
 
             ---
 
-            💡 *This app shows how simple NLP techniques can help students identify and express emotions safely and positively.*
+             *This app shows how simple NLP techniques can help students identify and express emotions safely and positively.*
             """,
             unsafe_allow_html=True,
         )
@@ -133,17 +133,17 @@ _negation_negative_pattern = re.compile(
 # Input + Main logic
 # -----------------------------
 user_text = st.text_area(
-    "💭 How are you feeling today?",
+    " How are you feeling today?",
     placeholder="Type something like 'I'm feeling amazing' or 'I didn't enjoy the game'",
     height=120
 )
 
-if st.button("✨ Show My Mood"):
+if st.button("Show My Mood"):
     if user_text.strip() == "":
-        st.warning("⚠️ Please type something first.")
+        st.warning(" Please type something first.")
     else:
         if profanity.contains_profanity(user_text):
-            st.error("🚫 Oops! Please use some humble words 💖")
+            st.error(" Oops! Please use some humble words ")
         else:
             expanded = expand_contractions(user_text)
 
@@ -174,25 +174,25 @@ if st.button("✨ Show My Mood"):
             polarity = max(-1, min(1, polarity))
 
             if polarity > 0.5:
-                emoji = "😄"
+                emoji = "\U0001F604"
                 bg_color = "#4CAF50"
-                message = "Yay! You seem really happy! Keep spreading those positive vibes 🌟"
+                message = "Yay! You seem really happy! Keep spreading those positive vibes "
             elif polarity > 0:
-                emoji = "🙂"
+                emoji = "\U0001F642"
                 bg_color = "#8BC34A"
-                message = "You look happy today! Stay cheerful and share a smile 😄"
+                message = "You look happy today! Stay happy and share a smile "
             elif polarity == 0:
-                emoji = "😐"
+                emoji = "\U0001F610"
                 bg_color = "#FFC107"
-                message = "Feeling neutral is okay. Maybe do something fun to brighten your day 🌈"
+                message = "Feeling neutral is okay. Maybe do some fun activities to lift your mood "
             elif polarity > -0.5:
-                emoji = "🙁"
+                emoji = "\U0001F641"
                 bg_color = "#FF9800"
-                message = "A little sad? That’s okay. Every day won’t be perfect, but you’re doing great 💪"
+                message = "A little sad? That’s okay. Every day won’t be perfect, but you’re doing great "
             else:
-                emoji = "😢"
+                emoji = "\U0001F622"
                 bg_color = "#F44336"
-                message = "Oh no! You seem really down. Remember, tough times don’t last — you’re strong 💖"
+                message = "Oh no! You seem really down. Remember, tough times don’t last — you’re strong "
 
             st.markdown(
                 f"""
@@ -208,7 +208,7 @@ if st.button("✨ Show My Mood"):
 st.markdown(
     """
     <br><hr><p style='text-align: center; color: #999; font-size: 14px;'>
-    🌈 Built for young learners (12–16) — Learn emotions safely & stay positive!
+    Built for young learners (12–16) — Learn emotions safely & stay positive!
     </p>
     """,
     unsafe_allow_html=True,
