@@ -1,0 +1,4 @@
+streamlit
+textblob
+better-profanity
+pattern
